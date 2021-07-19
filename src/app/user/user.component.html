@@ -1,0 +1,175 @@
+<div class="container">
+    <!-- Add User Form -->
+    <div class="row" *ngIf="!userType">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10 box-border">
+            
+            <h3>Add user:</h3>
+            <div class="row">
+                <form [formGroup]="userForm" method="post" (ngSubmit)="onSubmit(userForm)">
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="first_name" name="first_name" class="form-control" placeholder="First Name">
+                        <p class="error_msg" *ngIf="submitted && formGet.first_name.errors">First Name is required</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="last_name" name="last_name" class="form-control" placeholder="Last Name">
+                            <p class="error_msg" *ngIf="submitted && formGet.last_name.errors">Last Name is required</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="email" formControlName="email" name="email" class="form-control" placeholder="Enter Your Email">
+                        <p class="error_msg" *ngIf="submitted && formGet.email.errors">
+                            <span *ngIf="submitted && formGet.email.errors.required"> Email is required </span>
+                            <span *ngIf="submitted && formGet.email.errors.pattern"> Invlaid Email ID </span>
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="phone_number" name="phone_number" class="form-control" placeholder="Enter Your Phone Number">
+                        <p class="error_msg" *ngIf="submitted && formGet.phone_number.errors">Phone Number is required</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="password" formControlName="password" name="password" class="form-control" placeholder="Enter Your Password">
+                        <p class="error_msg" *ngIf="submitted && formGet.password.errors">Password is required</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="city" name="city" class="form-control" placeholder="Enter Your City">
+                        <p class="error_msg" *ngIf="submitted && formGet.city.errors">City is required</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="state" name="state" class="form-control" placeholder="Enter Your State">
+                        <p class="error_msg" *ngIf="submitted && formGet.state.errors">State is required</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="country" name="country" class="form-control" placeholder="Enter Your Country">
+                        <p class="error_msg" *ngIf="submitted && formGet.country.errors">Country is required</p>
+                    </div>
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary right">Add User</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    <!-- List user details -->
+    <div class="text-center">
+        <h3> Users List:</h3>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10 box-border">
+            <div class="row">
+                <table class="table">
+                    <thead class="text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Email</th>
+                            <th>PhoneNumber</th>
+                            <th>Password</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Country</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of listUser">
+                            <td>{{list.id}}</td>
+                            <td>{{list.first_name}}</td>
+                            <td>{{list.last_name}}</td>
+                            <td>{{list.email}}</td>
+                            <td>{{list.phone_number}}</td>
+                            <td>{{list.password}}</td>
+                            <td>{{list.city}}</td>
+                            <td>{{list.state}}</td>
+                            <td>{{list.country}}</td>
+                            <td>
+                                <a  href="#popup{{list.id}}" (click)="edit(list)" class="btn btn-success btn-xs">Edit</a>
+                                <button (click)="delete(list.id)" class="btn btn-danger btn-xs">Delete</button>
+                                <!-- Edit Start-->
+                                    <!-- Modal -->
+                                <div id="popup{{list.id}}" class="overlay">
+                                    <div class="popup">
+                                        <h4 class="modal-title">Update Your Details</h4>
+                                        <a (click)="close()" class="close" href="#">&times;</a>
+                                        <hr>
+                                        <!-- Model Content -->
+                                        <div class="content">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <form [formGroup]="userForm" method="post" (ngSubmit)="onSubmit(userForm)">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>First Name:</label>
+                                                                <input type="hidden"  class="form-control" name="id" value="{{list.id}}">
+                                                                <input type="text" formControlName="first_name" class="form-control" name="first_name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>Last Name:</label>
+                                                                <input type="text" formControlName="last_name" class="form-control" name="last_name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>Email:</label>
+                                                                <input type="text" formControlName="email" class="form-control" name="email">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>Phone Number:</label>
+                                                                <input type="text" formControlName="phone_number" class="form-control" name="phone_number">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>Password:</label>
+                                                                <input type="text" formControlName="password" class="form-control" name="password">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>City:</label>
+                                                                <input type="text" formControlName="city" class="form-control" name="city">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>State:</label>
+                                                                <input type="text" formControlName="state" class="form-control" name="state">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>Country:</label>
+                                                                <input type="text" formControlName="country" class="form-control" name="country">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <button class="btn btn-primary right">Save Change</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Edit End -->
+                                
+                            </td>
+                           </tr>
+                    </tbody>
+                </table>    
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+  </div>

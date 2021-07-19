@@ -24,7 +24,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -119,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "task"
+    }
+  },
+  "defaultProject": "task",
+  "cli": {
+    "analytics": "93f95ec4-fe2d-41f6-b38a-58b0991b963f"
+  }
 }
